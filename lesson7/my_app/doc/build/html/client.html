@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <title>Client module documentation &#8212; документация CoreChat v0.1</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" />
+    <link rel="next" title="Server module" href="server.html" />
+    <link rel="prev" title="Logs package" href="logs.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="client-module-documentation">
+<h1>Client module documentation<a class="headerlink" href="#client-module-documentation" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Клиентское приложение для обмена сообщениями. Поддерживает
+отправку сообщений пользователям которые находятся в сети, сообщения шифруются
+с помощью алгоритма RSA с длинной ключа 2048 bit.</p>
+<p>Поддерживает аргументы коммандной строки:</p>
+<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">client.py</span> <span class="pre">{имя</span> <span class="pre">сервера}</span> <span class="pre">{порт}</span> <span class="pre">-n</span> <span class="pre">или</span> <span class="pre">--name</span> <span class="pre">{имя</span> <span class="pre">пользователя}</span> <span class="pre">-p</span> <span class="pre">или</span> <span class="pre">-password</span> <span class="pre">{пароль}</span></code></p>
+<ol class="arabic simple">
+<li><p>{имя сервера} - адрес сервера сообщений.</p></li>
+<li><p>{порт} - порт по которому принимаются подключения</p></li>
+<li><p>-n или –name - имя пользователя с которым произойдёт вход в систему.</p></li>
+<li><p>-p или –password - пароль пользователя.</p></li>
+</ol>
+<p>Все опции командной строки являются необязательными, но имя пользователя и пароль необходимо использовать в паре.</p>
+<p>Примеры использования:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">client.py</span></code></p></li>
+</ul>
+<p><em>Запуск приложения с параметрами по умолчанию.</em></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">client.py</span> <span class="pre">ip_address</span> <span class="pre">some_port</span></code></p></li>
+</ul>
+<p><em>Запуск приложения с указанием подключаться к серверу по адресу ip_address:port</em></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-n</span> <span class="pre">test1</span> <span class="pre">-p</span> <span class="pre">123</span></code></p></li>
+</ul>
+<p><em>Запуск приложения с пользователем test1 и паролем 123</em></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">client.py</span> <span class="pre">ip_address</span> <span class="pre">some_port</span> <span class="pre">-n</span> <span class="pre">test1</span> <span class="pre">-p</span> <span class="pre">123</span></code></p></li>
+</ul>
+<p><em>Запуск приложения с пользователем test1 и паролем 123 и указанием подключаться к серверу по адресу ip_address:port</em></p>
+<div class="section" id="client-py">
+<h2>client.py<a class="headerlink" href="#client-py" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Запускаемый модуль,содержит парсер аргументов командной строки и функционал инициализации приложения.</p>
+<dl>
+<dt>client. <strong>arg_parser</strong> ()</dt><dd><p>Парсер аргументов командной строки, возвращает кортеж из 4 элементов:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>адрес сервера</p></li>
+<li><p>порт</p></li>
+<li><p>имя пользователя</p></li>
+<li><p>пароль</p></li>
+</ul>
+</div></blockquote>
+<p>Выполняет проверку на корректность номера порта.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="database-py">
+<h2>database.py<a class="headerlink" href="#database-py" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="class">
+<dt id="client.database.ClientDatabase">
+<em class="property">class </em><code class="sig-prename descclassname">client.database.</code><code class="sig-name descname">ClientDatabase</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="headerlink" href="#client.database.ClientDatabase" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="transport-py">
+<h2>transport.py<a class="headerlink" href="#transport-py" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="class">
+<dt id="client.transport.ClientTransport">
+<em class="property">class </em><code class="sig-prename descclassname">client.transport.</code><code class="sig-name descname">ClientTransport</code><span class="sig-paren">(</span><em class="sig-param">port</em>, <em class="sig-param">ip_address</em>, <em class="sig-param">database</em>, <em class="sig-param">username</em>, <em class="sig-param">passwd</em>, <em class="sig-param">keys</em><span class="sig-paren">)</span><a class="headerlink" href="#client.transport.ClientTransport" title="Ссылка на это определение">¶</a></dt>
+<dd><dl class="method">
+<dt id="client.transport.ClientTransport.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.transport.ClientTransport.run" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Method representing the thread’s activity.</p>
+<p>You may override this method in a subclass. The standard run() method
+invokes the callable object passed to the object’s constructor as the
+target argument, if any, with sequential and keyword arguments taken
+from the args and kwargs arguments, respectively.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="main-window-py">
+<h2>main_window.py<a class="headerlink" href="#main-window-py" title="Ссылка на этот заголовок">¶</a></h2>
+</div>
+<div class="section" id="start-dialog-py">
+<h2>start_dialog.py<a class="headerlink" href="#start-dialog-py" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="class">
+<dt id="client.start_dialog.UserNameDialog">
+<em class="property">class </em><code class="sig-prename descclassname">client.start_dialog.</code><code class="sig-name descname">UserNameDialog</code><a class="headerlink" href="#client.start_dialog.UserNameDialog" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="add-contact-py">
+<h2>add_contact.py<a class="headerlink" href="#add-contact-py" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="class">
+<dt id="client.add_contact.AddContactDialog">
+<em class="property">class </em><code class="sig-prename descclassname">client.add_contact.</code><code class="sig-name descname">AddContactDialog</code><span class="sig-paren">(</span><em class="sig-param">transport</em>, <em class="sig-param">database</em><span class="sig-paren">)</span><a class="headerlink" href="#client.add_contact.AddContactDialog" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="del-contact-py">
+<h2>del_contact.py<a class="headerlink" href="#del-contact-py" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="class">
+<dt id="client.del_contact.DelContactDialog">
+<em class="property">class </em><code class="sig-prename descclassname">client.del_contact.</code><code class="sig-name descname">DelContactDialog</code><span class="sig-paren">(</span><em class="sig-param">database</em><span class="sig-paren">)</span><a class="headerlink" href="#client.del_contact.DelContactDialog" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">CoreChat</a></h1>
+
+
+
+
+
+
+
+
+<h3>Навигация</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="launcher.html">Launcher module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Common package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logs.html">Logs package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Client module documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#client-py">client.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#database-py">database.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#transport-py">transport.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#main-window-py">main_window.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#start-dialog-py">start_dialog.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-contact-py">add_contact.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#del-contact-py">del_contact.py</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">Server module</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="logs.html" title="предыдущая глава">Logs package</a></li>
+      <li>Next: <a href="server.html" title="следующая глава">Server module</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Быстрый поиск</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Искать" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Ilya Zakharov.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/client.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

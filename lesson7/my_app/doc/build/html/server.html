@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <title>Server module &#8212; документация CoreChat v0.1</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" />
+    <link rel="prev" title="Client module documentation" href="client.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="server-module">
+<h1>Server module<a class="headerlink" href="#server-module" title="Ссылка на этот заголовок">¶</a></h1>
+<p>Серверный модуль мессенджера. Обрабатывает словари - сообщения, хранит публичные ключи клиентов.</p>
+<p>Использование</p>
+<p>Модуль подерживает аргементы командной стороки:</p>
+<ol class="arabic simple">
+<li><p>-p - Порт на котором принимаются соединения</p></li>
+<li><p>-a - Адрес с которого принимаются соединения.</p></li>
+<li><p>–no_gui Запуск только основных функций, без графической оболочки.</p></li>
+</ol>
+<ul class="simple">
+<li><p>В данном режиме поддерживается только 1 команда: exit - завершение работы.</p></li>
+</ul>
+<p>Примеры использования:</p>
+<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">server.py</span> <span class="pre">-p</span> <span class="pre">8080</span></code></p>
+<p><em>Запуск сервера на порту 8080</em></p>
+<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">server.py</span> <span class="pre">-a</span> <span class="pre">localhost</span></code></p>
+<p><em>Запуск сервера принимающего только соединения с localhost</em></p>
+<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">server.py</span> <span class="pre">--no-gui</span></code></p>
+<p><em>Запуск без графической оболочки</em></p>
+<div class="section" id="server-py">
+<h2>server.py<a class="headerlink" href="#server-py" title="Ссылка на этот заголовок">¶</a></h2>
+<p>Запускаемый модуль,содержит парсер аргументов командной строки и функционал инициализации приложения.</p>
+<dl>
+<dt>server. <strong>arg_parser</strong> ()</dt><dd><p>Парсер аргументов командной строки, возвращает кортеж из 4 элементов:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>адрес с которого принимать соединения</p></li>
+<li><p>порт</p></li>
+<li><p>флаг запуска GUI</p></li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>server. <strong>config_load</strong> ()</dt><dd><p>Функция загрузки параметров конфигурации из ini файла.
+В случае отсутствия файла задаются параметры по умолчанию.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="core-py">
+<h2>core.py<a class="headerlink" href="#core-py" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="class">
+<dt id="server.core.MessageProcessor">
+<em class="property">class </em><code class="sig-prename descclassname">server.core.</code><code class="sig-name descname">MessageProcessor</code><span class="sig-paren">(</span><em class="sig-param">listen_address</em>, <em class="sig-param">listen_port</em>, <em class="sig-param">database</em><span class="sig-paren">)</span><a class="headerlink" href="#server.core.MessageProcessor" title="Ссылка на это определение">¶</a></dt>
+<dd><dl class="method">
+<dt id="server.core.MessageProcessor.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#server.core.MessageProcessor.run" title="Ссылка на это определение">¶</a></dt>
+<dd><p>Method representing the thread’s activity.</p>
+<p>You may override this method in a subclass. The standard run() method
+invokes the callable object passed to the object’s constructor as the
+target argument, if any, with sequential and keyword arguments taken
+from the args and kwargs arguments, respectively.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="database-py">
+<h2>database.py<a class="headerlink" href="#database-py" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="class">
+<dt id="server.database.ServerStorage">
+<em class="property">class </em><code class="sig-prename descclassname">server.database.</code><code class="sig-name descname">ServerStorage</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="headerlink" href="#server.database.ServerStorage" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="main-window-py">
+<h2>main_window.py<a class="headerlink" href="#main-window-py" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="class">
+<dt id="server.main_window.MainWindow">
+<em class="property">class </em><code class="sig-prename descclassname">server.main_window.</code><code class="sig-name descname">MainWindow</code><span class="sig-paren">(</span><em class="sig-param">database</em>, <em class="sig-param">server</em>, <em class="sig-param">config</em><span class="sig-paren">)</span><a class="headerlink" href="#server.main_window.MainWindow" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="add-user-py">
+<h2>add_user.py<a class="headerlink" href="#add-user-py" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="class">
+<dt id="server.add_user.RegisterUser">
+<em class="property">class </em><code class="sig-prename descclassname">server.add_user.</code><code class="sig-name descname">RegisterUser</code><span class="sig-paren">(</span><em class="sig-param">database</em>, <em class="sig-param">server</em><span class="sig-paren">)</span><a class="headerlink" href="#server.add_user.RegisterUser" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="remove-user-py">
+<h2>remove_user.py<a class="headerlink" href="#remove-user-py" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="class">
+<dt id="server.remove_user.DelUserDialog">
+<em class="property">class </em><code class="sig-prename descclassname">server.remove_user.</code><code class="sig-name descname">DelUserDialog</code><span class="sig-paren">(</span><em class="sig-param">database</em>, <em class="sig-param">server</em><span class="sig-paren">)</span><a class="headerlink" href="#server.remove_user.DelUserDialog" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="config-window-py">
+<h2>config_window.py<a class="headerlink" href="#config-window-py" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="class">
+<dt id="server.config_window.ConfigWindow">
+<em class="property">class </em><code class="sig-prename descclassname">server.config_window.</code><code class="sig-name descname">ConfigWindow</code><span class="sig-paren">(</span><em class="sig-param">config</em><span class="sig-paren">)</span><a class="headerlink" href="#server.config_window.ConfigWindow" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="stat-window-py">
+<h2>stat_window.py<a class="headerlink" href="#stat-window-py" title="Ссылка на этот заголовок">¶</a></h2>
+<dl class="class">
+<dt id="server.stat_window.StatWindow">
+<em class="property">class </em><code class="sig-prename descclassname">server.stat_window.</code><code class="sig-name descname">StatWindow</code><span class="sig-paren">(</span><em class="sig-param">database</em><span class="sig-paren">)</span><a class="headerlink" href="#server.stat_window.StatWindow" title="Ссылка на это определение">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">CoreChat</a></h1>
+
+
+
+
+
+
+
+
+<h3>Навигация</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="launcher.html">Launcher module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Common package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logs.html">Logs package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="client.html">Client module documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Server module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#server-py">server.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#core-py">core.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#database-py">database.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#main-window-py">main_window.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-user-py">add_user.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#remove-user-py">remove_user.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#config-window-py">config_window.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stat-window-py">stat_window.py</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="client.html" title="предыдущая глава">Client module documentation</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Быстрый поиск</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Искать" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Ilya Zakharov.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/server.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
